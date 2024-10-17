@@ -16,13 +16,15 @@ test('Is the number of items checked the same as shown in the title?', () => {
     render(<ToDoList />);
 
     const checkboxes = screen.getAllByRole('checkbox');
-    
-    // needs to be 0 first
-    const itemsBoughtText = screen.getByText(/Items bought: 0/i);
-    expect(itemsBoughtText).toBeInTheDocument();
 
     fireEvent.click(checkboxes[0]); 
     
     const updatedItemsBoughtText = screen.getByText(/Items bought: 1/i);
     expect(updatedItemsBoughtText).toBeInTheDocument();
+});
+
+test('Does the number of items bought start at 0?', () => {
+    render(<ToDoList />);
+    const itemsBoughtText = screen.getByText(/Items bought: 0/i);
+    expect(itemsBoughtText).toBeInTheDocument();
 });

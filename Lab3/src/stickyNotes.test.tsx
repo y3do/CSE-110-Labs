@@ -84,3 +84,15 @@ test('delete note filters out once x is pressed', () => {
 
     expect(noteToDelete).not.toBeInTheDocument();
 });
+
+test('Delete note 2 removes it?', () => {
+    render(<StickyNotes />);
+
+    const noteToDelete = screen.getByText('test note 2 title');
+    expect(noteToDelete).toBeInTheDocument();
+
+    const deleteButton = screen.getAllByText('x')[1]; // 2nd delete button
+    fireEvent.click(deleteButton);
+
+    expect(noteToDelete).not.toBeInTheDocument();
+});
