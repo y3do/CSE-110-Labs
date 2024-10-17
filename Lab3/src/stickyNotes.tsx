@@ -116,9 +116,43 @@ export const StickyNotes = () => {
                             </div>
 
 
-                            <h2><blockquote contentEditable="true"><p>{note.title}</p></blockquote></h2>
-                            <p><blockquote contentEditable="true"><p>{note.content}</p></blockquote></p>
-                            <p><blockquote contentEditable="true"><p>{note.label}</p></blockquote></p>
+                            <h2>
+                                <blockquote
+                                    contentEditable="true"
+                                    data-testid={`title-${note.id}`}
+                                    onInput={(e) => {
+                                        const newTitle = (e.target as HTMLDivElement).innerText;
+                                        setNotes(notes.map(n => n.id === note.id ? { ...n, title: newTitle } : n));
+                                    }}
+                                >
+                                    <p>{note.title}</p>
+                                </blockquote>
+                            </h2>
+
+                            <p>
+                                <blockquote
+                                    contentEditable="true"
+                                    data-testid={`content-${note.id}`}
+                                    onInput={(e) => {
+                                        const newContent = (e.target as HTMLDivElement).innerText;
+                                        setNotes(notes.map(n => n.id === note.id ? { ...n, content: newContent } : n));
+                                    }}
+                                >
+                                    <p>{note.content}</p>
+                                </blockquote>
+                            </p>
+                            <p>
+                                <blockquote
+                                    contentEditable="true"
+                                    data-testid={`label-${note.id}`}
+                                    onInput={(e) => {
+                                        const newLabel = (e.target as HTMLDivElement).innerText as Label;
+                                        setNotes(notes.map(n => n.id === note.id ? { ...n, label: newLabel } : n));
+                                    }}
+                                >
+                                    <p>{note.label}</p>
+                                </blockquote>
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -140,4 +174,3 @@ export const StickyNotes = () => {
         </ThemeContext.Provider>
     );
 }
-// }
